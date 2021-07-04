@@ -1,0 +1,47 @@
+<div class="table-responsive">
+<table class="table table-bordered  table-striped">
+    <thead>
+      <tr>
+        <th scope="col">Name</th>
+        <th scope="col">Address</th>
+        <th scope="col">Phone Number</th>
+        <th scope="col">Email</th>
+        <th scope="col">College</th>
+        <th scope="col">Current States</th>
+        <th scope="col">Update Progress</th>     
+        <th scope="col">Update Progress</th>  
+        <th scope="col">View Intern</th>
+        <th scope="col">Deactivated</th>
+        <th scope="col">Action</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let interndata of lstInterns">
+        <td>{{interndata.name}}</td>
+        <td>{{interndata.address}}</td>
+        <td>{{interndata.phoneNumber}}</td>
+        <td>{{interndata.email}}</td>
+        <td>{{interndata.collegeName}}</td>
+        <td>{{interndata.status}}</td>
+        <td >
+          <i (click)="showDetails(interndata._id)" class="fa fa-info-circle fa-2x" ></i>
+
+        </td>
+        <td>Update Progress</td>
+        <td>
+          <select [(ngModel)]="interndata.status" (change)="updateIntern('',interndata)" >
+            <option *ngFor="let status of status | keyvalue" [value]="status.value" >{{status.value}}</option>
+          </select>
+        </td>
+        <td>
+          <div class="form-check form-switch">
+            <input class="form-check-input" [checked]="interndata.isActive" (click)="updateIntern('deactivate',interndata)" type="checkbox" >
+            
+          </div>
+        </td>
+        <td><button  (click)="delete(interndata._id)" class="btn"><i class="fa fa-trash"></i></button></td>
+      </tr>
+    </tbody>
+  </table>
+
+</div>
