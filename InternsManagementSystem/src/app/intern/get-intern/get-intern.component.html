@@ -1,0 +1,101 @@
+<div class="table-responsive">
+<table class="table table-bordered  table-striped">
+    <thead>
+      <tr>
+        <th scope="col">S.No</th>
+        <th scope="col">Name</th>
+        <th scope="col">Address</th>
+        <th scope="col">Phone Number</th>
+        <th scope="col">Email</th>
+        <th scope="col">College</th>
+        <th scope="col">Current States</th>
+        <th scope="col">View Details</th>     
+        <th scope="col">Update Progress</th>  
+        <th scope="col">View Intern</th>
+        <th scope="col">Deactivated</th>
+        <th scope="col">Delete Intern</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let interndata of lstInterns ,let ndx = index">
+        <td>{{ndx + 1}}</td>
+        <td>{{interndata.name}}</td>
+        <td>{{interndata.address}}</td>
+        <td>{{interndata.phoneNumber}}</td>
+        <td>{{interndata.email}}</td>
+        <td >{{interndata.collegeName}}</td>
+        <td>{{interndata.status}}</td>
+        <td >
+          <i (click)="showDetails(interndata._id)" class="fa fa-info-circle fa-2x" ></i>
+
+        </td>
+        <td> 
+          <button type="button" class="btn btn-primary" (click)="openModalWithClass(template)">Update Progress</button> 
+          <ng-template #template>      
+          <div class=" container  modal-header" >  
+            <h4 class="modal-title pull-left">Show Progress Details</h4>
+          </div>  
+            <div class="container table-responsive">
+              <table class="table table table-bordered  table-striped">
+                <thead>
+                  <tr>
+                    <th scope="col">S.No</th>
+                    <th scope="col">Date</th>
+                    <th scope="col">Work</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr *ngFor="let progress of interndata.progress , let ndx1 = index">
+                    <td>{{ndx1 + 1}}</td>
+                    <td>{{ progress.date}}</td>
+                    <td>{{ progress.work}}</td>
+                  </tr>
+  
+                </tbody>
+              </table>
+            </div>
+            <div class=" container  modal-header" style="text-align: center">  
+              <h4 class="modal-title pull-left">Add Progress</h4>
+            </div>  
+            <div class="modal-body"> 
+              <div class="row mb-4">
+                <div class="col">
+                    <div class="form-outline">
+                        <label class="form-label">Date </label>
+                        <input [(ngModel)]='progressDate' type="date" name='date' min="{{interndata.startDate | date: 'yyyy-MM-dd}}" max="{{max | date: 'yyyy-MM-dd'}}"  class="form-control" required />
+                    </div>
+                </div>
+                <div class="col">
+                    <div class="form-outline">
+                        <label class="form-label" >What was done</label>
+                        <input [(ngModel)]='progressWork' type="text" name='work' placeholder='' class="form-control" required />
+                    </div>
+                </div>
+              </div> 
+            </div>  
+            <div class="modal-footer">  
+              <button type="button" class="btn btn-default"(click)="updateIntern('progress',interndata)" >Save</button> 
+              <button type="button" class="btn btn-default" (click)="modalRef.hide()">Close</button>  
+            </div>  
+            
+          </ng-template>
+        </td>
+        <td>
+          <select [(ngModel)]="interndata.status" (change)="updateIntern('',interndata)" >
+            <option *ngFor="let status of status | keyvalue" [value]="status.value" >{{status.value}}</option>
+          </select>
+        </td>
+        <td>
+          <div class="form-check form-switch">
+            <input class="form-check-input" [checked]="interndata.isActive" (click)="updateIntern('deactivate',interndata)" type="checkbox" >
+            
+          </div>
+        </td>
+        <td><button  (click)="delete(interndata._id)" class="btn"><i class="fa fa-trash"></i></button></td>
+      </tr>
+    </tbody>
+  </table>
+
+</div>
+  
+   

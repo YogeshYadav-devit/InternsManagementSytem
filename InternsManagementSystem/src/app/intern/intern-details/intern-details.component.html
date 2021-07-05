@@ -1,0 +1,128 @@
+<div *ngIf="!matchinternId; then thenBlock else elseBlock"></div>
+<ng-template #thenBlock>
+    <div class="alert alert-danger d-flex align-items-center" role="alert">
+        <svg class="bi flex-shrink-0 me-2" width="24" height="24" role="img" aria-label="Danger:">
+            <use xlink:href="#exclamation-triangle-fill" />
+        </svg>
+        <div>
+            No, Record Found
+        </div>
+    </div>
+</ng-template>
+<ng-template #elseBlock>
+    <div class="container">
+        <div style=" text-align:center">
+            <h3> Intern Details of {{interndetails.name}} </h3>
+        </div>
+        <!-- 2 column grid layout with text inputs for the first and last names -->
+        <div class="row mb-4">
+            <div class="col">
+                <div class="form-outline">
+                    <label class="form-label">Name</label>
+                    <input type="text" value="{{interndetails.name}}" class="form-control" disabled />
+                </div>
+            </div>
+            <div class="col">
+                <div class="form-outline">
+                    <label class="form-label" for="form6Example2">Address</label>
+                    <input type="text" class="form-control" value="{{interndetails.address}}" disabled />
+                </div>
+            </div>
+
+        </div>
+        <!-- 2 column grid layout with text inputs for the Email and Phone No  -->
+        <div class="row mb-4">
+            <div class="col">
+                <div class="form-outline">
+                    <label class="form-label">Email </label>
+                    <input type="text" class="form-control" value="{{interndetails.email}}" disabled />
+                </div>
+            </div>
+            <div class="col">
+                <div class="form-outline">
+                    <label class="form-label" for="form6Example2">Phone Number</label>
+                    <input type="text" class="form-control" value="{{interndetails.phoneNumber}}" disabled />
+                </div>
+            </div>
+        </div>
+        <div class="row mb-4">
+            <div class="col">
+                <div class="form-outline">
+                    <label class="form-label">College Name </label>
+                    <input type="text" class="form-control" value="{{interndetails.collegeName}}" disabled />
+                </div>
+            </div>
+            <div class="col">
+                <div class="form-outline">
+                    <label class="form-label">Branch Name </label>
+                    <input type="text" class="form-control" value="{{interndetails.branchName}}" disabled />
+                </div>
+            </div>
+        </div>
+        <div class="row mb-4">
+            <div class="col">
+                <div class="form-outline">
+                    <label class="form-label">Project Name </label>
+                    <input type="text" class="form-control" value="{{interndetails.projectName}}" disabled />
+                </div>
+            </div>
+            <div class="col">
+                <div class="form-outline">
+                    <label class="form-label">Purpose </label>
+                    <input type="text" class="form-control" value="{{interndetails.purpose}}" disabled />
+                </div>
+            </div>
+        </div>
+        <div class="row mb-4">
+            <div class="col">
+                <div class="form-outline">
+                    <label class="form-label"> Start Date </label>
+                    <input type="text" class="form-control" value="{{interndetails.startDate}}" disabled />
+                </div>
+            </div>
+            <div class="col">
+                <div class="form-outline">
+                    <label class="form-label">End Date </label>
+                    <input type="text" class="form-control" value="{{interndetails.endDate}}" disabled />
+                </div>
+            </div>
+        </div>
+        <div class="row mb-4">
+            <div class="col">
+                <div class="form-outline">
+                    <label class="form-label"> Is Active </label>
+                    <input type="text" class="form-control" value="{{interndetails.isActive}}" disabled />
+                </div>
+            </div>
+            <div class="col">
+                <div class="form-outline">
+                    <label class="form-label">Status </label>
+                    <input type="text" class="form-control" value="{{interndetails.status}}" disabled />
+                </div>
+            </div>
+        </div>
+    </div>
+    <div style=" text-align:center">
+        <h3> Progress Details of {{interndetails.name}} </h3>
+    </div>
+    <div class=" container  table-responsive">
+        <table class="table table-bordered  table-striped">
+            <thead>
+              <tr>
+                <th scope="col">S.No</th>
+                <th scope="col">Date</th>
+                <th scope="col">Work</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr *ngFor="let progress of interndetails.progress,let ndx= index ">
+                <td>{{ndx + 1}}</td>
+                <td>{{progress.date}}</td>
+                <td>{{progress.work}}</td>
+              </tr>
+
+            </tbody>
+          </table>
+
+    </div>
+</ng-template>
