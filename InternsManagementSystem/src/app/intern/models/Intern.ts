@@ -12,7 +12,8 @@ export class Intern{
     startDate !: Date;
     endDate !: Date;
     isActive ?:boolean;
-    status ?: status;
+    status ?: string;
+    // status ?: status;
     progress ?:Progress[]=[];
 
     

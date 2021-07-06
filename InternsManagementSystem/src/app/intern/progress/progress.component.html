@@ -1,0 +1,39 @@
+<div style=" text-align:center">
+  <h3> Progress Details of {{progressdetails.name}} </h3>
+</div>
+
+<div *ngIf="length == 0 ; then thenBlock else elseBlock" ></div>
+<ng-template #thenBlock>
+  <div class="alert alert-danger d-flex align-items-center" role="alert">
+      <svg class="bi flex-shrink-0 me-2" width="24" height="24" role="img" aria-label="Danger:">
+          <use xlink:href="#exclamation-triangle-fill" />
+      </svg>
+      <div>
+          No, Record Found
+      </div>
+  </div>
+</ng-template>
+<ng-template #elseBlock>
+
+<div class=" container  table-responsive">
+    <table class="table table-bordered  table-striped">
+        <thead>
+          <tr>
+            <th scope="col">S.No</th>
+            <th scope="col">Date</th>
+            <th scope="col">Work</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let progress of progressdetails.progress,let ndx= index ">
+            <td>{{ndx + 1}}</td>
+            <td>{{progress.date | date:'fullDate'}}</td>
+            <td>{{progress.work}}</td>
+          </tr>
+
+        </tbody>
+      </table>
+
+</div>
+
+</ng-template>

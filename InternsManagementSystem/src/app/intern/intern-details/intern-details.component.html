@@ -77,13 +77,13 @@
             <div class="col">
                 <div class="form-outline">
                     <label class="form-label"> Start Date </label>
-                    <input type="text" class="form-control" value="{{interndetails.startDate}}" disabled />
+                    <input type="text" class="form-control" value="{{interndetails.startDate | date:'fullDate'}}" disabled />
                 </div>
             </div>
             <div class="col">
                 <div class="form-outline">
                     <label class="form-label">End Date </label>
-                    <input type="text" class="form-control" value="{{interndetails.endDate}}" disabled />
+                    <input type="text" class="form-control" value="{{interndetails.endDate | date:'fullDate'}}" disabled />
                 </div>
             </div>
         </div>
@@ -101,28 +101,6 @@
                 </div>
             </div>
         </div>
-    </div>
-    <div style=" text-align:center">
-        <h3> Progress Details of {{interndetails.name}} </h3>
-    </div>
-    <div class=" container  table-responsive">
-        <table class="table table-bordered  table-striped">
-            <thead>
-              <tr>
-                <th scope="col">S.No</th>
-                <th scope="col">Date</th>
-                <th scope="col">Work</th>
-              </tr>
-            </thead>
-            <tbody>
-              <tr *ngFor="let progress of interndetails.progress,let ndx= index ">
-                <td>{{ndx + 1}}</td>
-                <td>{{progress.date}}</td>
-                <td>{{progress.work}}</td>
-              </tr>
-
-            </tbody>
-          </table>
-
+        <app-progress></app-progress>
     </div>
 </ng-template>

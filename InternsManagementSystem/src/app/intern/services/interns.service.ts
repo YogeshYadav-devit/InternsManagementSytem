@@ -1,15 +1,16 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
 import { Observable } from 'rxjs';
+import{environment} from '../../../environments/environment'
 import { Intern } from '../models/Intern';
+
 
 @Injectable({
   providedIn: 'root'
 })
 export class InternsService {
-  private url = 'https://crudcrud.com/api/37ce6eb65770431fa31c9d14c286d027/intern';
+  private url = environment.url;
   constructor(private http: HttpClient) { }
-
   // Get all the intern record into the api 
   getInterns(): Observable<any> {
     let data = this.http.get(this.url);

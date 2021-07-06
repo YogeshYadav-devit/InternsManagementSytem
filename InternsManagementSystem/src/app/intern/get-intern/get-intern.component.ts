@@ -36,7 +36,6 @@ export class GetInternComponent implements OnInit {
       data=>{ this.lstInterns=data;
         // sort the progressWork by date
         this.lstInterns.forEach((data1) => {
-
           data1.progress?.sort((a, b) => {
             let fa = a.date,
                 fb = b.date;
@@ -56,7 +55,7 @@ export class GetInternComponent implements OnInit {
 
   // show details a perticular  
   showDetails(id:string){
-    this.router.navigate(['/interndetails/',id]);
+    this.router.navigate(['/interns/',id]);
   }
 
   // delete the intern record

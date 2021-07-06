@@ -12,6 +12,7 @@ import { InternDetailsComponent } from './intern-details/intern-details.componen
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { ToastrModule } from 'ngx-toastr';
 import { ModalModule } from 'ngx-bootstrap/modal';
+import { ProgressComponent } from './progress/progress.component';
 
 
 @NgModule({
@@ -21,6 +22,7 @@ import { ModalModule } from 'ngx-bootstrap/modal';
     HeaderComponent,
     ApplyInternComponent,
     InternDetailsComponent,
+    ProgressComponent,
   ],
   imports: [
     CommonModule,
@@ -37,6 +39,8 @@ import { ModalModule } from 'ngx-bootstrap/modal';
     GetInternComponent,
     HeaderComponent,
     ApplyInternComponent,
+    ProgressComponent,
+
   ],
   providers: [InternsService
 

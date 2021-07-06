@@ -1,101 +1,172 @@
-<div class="table-responsive">
-<table class="table table-bordered  table-striped">
-    <thead>
-      <tr>
-        <th scope="col">S.No</th>
-        <th scope="col">Name</th>
-        <th scope="col">Address</th>
-        <th scope="col">Phone Number</th>
-        <th scope="col">Email</th>
-        <th scope="col">College</th>
-        <th scope="col">Current States</th>
-        <th scope="col">View Details</th>     
-        <th scope="col">Update Progress</th>  
-        <th scope="col">View Intern</th>
-        <th scope="col">Deactivated</th>
-        <th scope="col">Delete Intern</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr *ngFor="let interndata of lstInterns ,let ndx = index">
-        <td>{{ndx + 1}}</td>
-        <td>{{interndata.name}}</td>
-        <td>{{interndata.address}}</td>
-        <td>{{interndata.phoneNumber}}</td>
-        <td>{{interndata.email}}</td>
-        <td >{{interndata.collegeName}}</td>
-        <td>{{interndata.status}}</td>
-        <td >
-          <i (click)="showDetails(interndata._id)" class="fa fa-info-circle fa-2x" ></i>
+<div *ngIf="lstInterns.length!=0; then thenBlock else elseBlock"></div>
+<ng-template #elseBlock>
+  <div class="alert alert-danger d-flex align-items-center" role="alert">
+    <svg class="bi flex-shrink-0 me-2" width="24" height="24" role="img" aria-label="Danger:">
+      <use xlink:href="#exclamation-triangle-fill" />
+    </svg>
+    <div>
+      No, Record Found
+    </div>
+  </div>
+</ng-template>
 
-        </td>
-        <td> 
-          <button type="button" class="btn btn-primary" (click)="openModalWithClass(template)">Update Progress</button> 
-          <ng-template #template>      
-          <div class=" container  modal-header" >  
-            <h4 class="modal-title pull-left">Show Progress Details</h4>
-          </div>  
-            <div class="container table-responsive">
-              <table class="table table table-bordered  table-striped">
-                <thead>
-                  <tr>
-                    <th scope="col">S.No</th>
-                    <th scope="col">Date</th>
-                    <th scope="col">Work</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  <tr *ngFor="let progress of interndata.progress , let ndx1 = index">
-                    <td>{{ndx1 + 1}}</td>
-                    <td>{{ progress.date}}</td>
-                    <td>{{ progress.work}}</td>
-                  </tr>
-  
-                </tbody>
-              </table>
-            </div>
-            <div class=" container  modal-header" style="text-align: center">  
-              <h4 class="modal-title pull-left">Add Progress</h4>
-            </div>  
-            <div class="modal-body"> 
-              <div class="row mb-4">
-                <div class="col">
-                    <div class="form-outline">
+<ng-template #thenBlock>
+  <div style="overflow-x:auto">
+    <table class="table table-bordered  table-striped table-responsive">
+      <thead>
+        <tr>
+          <th scope="col">S.No</th>
+          <th scope="col">Name</th>
+          <th scope="col">Address</th>
+          <th scope="col">Phone Number</th>
+          <th scope="col">Email</th>
+          <th scope="col">College</th>
+          <th scope="col">Current States</th>
+          <th scope="col">View Details</th>
+          <th scope="col">Update Progress</th>
+          <th scope="col">Update Status</th>
+          <th scope="col">Deactivated</th>
+          <th scope="col">Delete Intern</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let interndata of lstInterns ,let ndx = index">
+          <td>{{ndx + 1}}</td>
+          <td>{{interndata.name}}</td>
+          <td>{{interndata.address}}</td>
+          <td>{{interndata.phoneNumber}}</td>
+          <td>{{interndata.email}}</td>
+          <td>{{interndata.collegeName}}</td>
+
+          <td>{{interndata.status}}</td>
+
+          <!-- // show  interns Details -->
+          <td>
+            <i (click)="showDetails(interndata._id)" class="fa fa-info-circle fa-2x"></i>
+
+          </td>
+
+          <!-- // add and show progress data -->
+          <td>
+            <button type="button" class="btn btn-sm btn-success" (click)="openModalWithClass(template)">Update</button>
+            <a routerLink="{{interndata._id}}/progress" class="btn btn-sm btn-info m-1">Show</a>
+            <ng-template #template>
+              <div class=" container  modal-header">
+                <h4 class="modal-title pull-left">Show Progress Details</h4>
+              </div>
+              <!-- // show record of progress data -->
+              <div class="container table-responsive">
+                <table class="table table table-bordered  table-striped">
+                  <thead>
+                    <tr>
+                      <th scope="col">S.No</th>
+                      <th scope="col">Date</th>
+                      <th scope="col">Work</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr *ngFor="let progress of interndata.progress , let ndx1 = index">
+                      <td>{{ndx1 + 1}}</td>
+                      <td>{{ progress.date}}</td>
+                      <td>{{ progress.work}}</td>
+                    </tr>
+
+                  </tbody>
+                </table>
+              </div>
+              <!-- // add a interns progress data -->
+              <div class=" container  modal-header" style="text-align: center">
+                <h4 class="modal-title pull-left">Add Progress</h4>
+              </div>
+              <form #registerForm="ngForm">
+                <div class="modal-body">
+                  <div class="row mb-4">
+                    <div class="col">
+                      <div class="form-outline">
                         <label class="form-label">Date </label>
-                        <input [(ngModel)]='progressDate' type="date" name='date' min="{{interndata.startDate | date: 'yyyy-MM-dd}}" max="{{max | date: 'yyyy-MM-dd'}}"  class="form-control" required />
-                    </div>
-                </div>
-                <div class="col">
-                    <div class="form-outline">
-                        <label class="form-label" >What was done</label>
-                        <input [(ngModel)]='progressWork' type="text" name='work' placeholder='' class="form-control" required />
-                    </div>
-                </div>
-              </div> 
-            </div>  
-            <div class="modal-footer">  
-              <button type="button" class="btn btn-default"(click)="updateIntern('progress',interndata)" >Save</button> 
-              <button type="button" class="btn btn-default" (click)="modalRef.hide()">Close</button>  
-            </div>  
-            
-          </ng-template>
-        </td>
-        <td>
-          <select [(ngModel)]="interndata.status" (change)="updateIntern('',interndata)" >
-            <option *ngFor="let status of status | keyvalue" [value]="status.value" >{{status.value}}</option>
-          </select>
-        </td>
-        <td>
-          <div class="form-check form-switch">
-            <input class="form-check-input" [checked]="interndata.isActive" (click)="updateIntern('deactivate',interndata)" type="checkbox" >
-            
-          </div>
-        </td>
-        <td><button  (click)="delete(interndata._id)" class="btn"><i class="fa fa-trash"></i></button></td>
-      </tr>
-    </tbody>
-  </table>
 
-</div>
-  
-   
+                        <input [(ngModel)]='progressDate' name="progressDate" #progressdate="ngModel" type="date"
+                          name='date' min="{{interndata.startDate }}"
+                          max="{{max}}" class="form-control" required />
+                        <div class="text-danger" *ngIf="progressdate.touched  && progressdate.errors">
+                          <p *ngIf="progressdate.errors.required">Date Is Required.</p>
+                        </div>
+
+                      </div>
+                    </div>
+                    <div class="col">
+                      <div class="form-outline">
+                        <label class="form-label">What was done</label>
+                        <input [(ngModel)]='progressWork' type="text" name='work' placeholder='' #work="ngModel"
+                          class="form-control" required />
+                        <div class="text-danger" *ngIf="work.touched && work.errors">
+                          <p *ngIf="work.errors.required">field is required</p>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div class="modal-footer">
+                  <button type="button" class="btn btn-default" [disabled]="!registerForm.form.valid"
+                    (click)="updateIntern('progress',interndata)">Save</button>
+                  <button type="button" class="btn btn-default" (click)="modalRef.hide()">Close</button>
+                </div>
+
+              </form>
+
+
+            </ng-template>
+          </td>
+          <!-- <td>
+              <select [(ngModel)]="interndata.status" (change)="updateIntern('',interndata)" >
+                <option *ngFor="let status of status | keyvalue" [value]="status.value" >{{status.value}}</option>
+              </select>
+            </td> -->
+
+          <!-- change status  -->
+          <td>
+            <!-- <div *ngIf='interndata.status == "Pending"'>
+              <select class="form-select" [(ngModel)]="interndata.status" (change)="updateIntern('',interndata)">
+
+                <optgroup  selected label="{{interndata.status}}">
+                  <option value="InTraining">InTraining</option>
+                  <option value="Rejected">Rejected</option>
+                </optgroup>
+              </select>
+            </div> -->
+            <div *ngIf='interndata.status == "InTraining" || interndata.status == "Pending"|| interndata.status == "Rejected" || interndata.status == "Completed" || interndata.status == "Cancelled" '>
+              <select [disabled]='interndata.status == "Rejected" || interndata.status == "Completed" || interndata.status == "Cancelled" ' class="form-select" [(ngModel)]="interndata.status" (change)="updateIntern('',interndata)">
+                <optgroup  [disabled]="interndata.status == 'InTraining'"   label="Pending">
+                  <option value="InTraining">InTraining</option>
+                  <option value="Rejected">Rejected</option>
+                </optgroup>
+                <optgroup  [disabled]="interndata.status == 'Pending' " label="InTraining" >
+                  <option value="Cancelled">Cancelled</option>
+                  <option value="Completed">Completed</option>
+                </optgroup>
+              </select>
+            </div>
+            <!-- <div
+              *ngIf='interndata.status == "Rejected" || interndata.status == "Completed" || interndata.status == "Cancelled" '>
+              <select disabled class="form-select">
+                <option selected>{{interndata.status}}</option>
+              </select>
+            </div> -->
+          </td>
+          <td>
+            <div class="form-check form-switch">
+              <input class="form-check-input" [checked]="interndata.isActive"
+                (click)="updateIntern('deactivate',interndata)" type="checkbox">
+
+            </div>
+          </td>
+          <td><button (click)="delete(interndata._id)" class="btn"><i class="fa fa-trash"></i></button></td>
+        </tr>
+      </tbody>
+    </table>
+
+
+  </div>
+
+
+</ng-template>
