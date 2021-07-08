@@ -43,10 +43,6 @@ export class ProgressComponent implements OnInit {
           }
           return 0;
         });
-        this.progressdetails.progress?.forEach((e) => {
-          console.log(`${e.date} ${e.date}`);
-        });
-        console.log(typeof this.progressdetails.progress+" "+this.length)
       }
       else {
         console.log("No Exit intern Id");

@@ -1,5 +1,5 @@
 import { Component, OnInit, TemplateRef } from '@angular/core';
-import { Intern } from '../models/Intern';
+import { Intern, Progress } from '../models/Intern';
 import {status}from '../enums/status.enum';
 import { InternsService } from '../services/interns.service';
 import { ActivatedRoute, Router } from '@angular/router';
@@ -74,10 +74,13 @@ export class GetInternComponent implements OnInit {
       intern.isActive = ! intern.isActive;
     }
     if(actionType === "progress"){
-      var p ={date:this.progressDate,work:this.progressWork};
-      console.log(p.date+" "+p.work)
-      console.log(typeof p.date)
-      intern.progress?.push(p);
+      let progress = new Progress();
+          progress.date = this.progressDate;
+          progress.work = this.progressWork;
+      if(!intern.progress){
+        intern.progress = [];
+      }
+      intern.progress.push(progress);
     }
     console.log(intern);
     let tempIntern = new Intern();
